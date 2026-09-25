@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mike Koshko — Marketing Operations and Growth Strategist with 20 years of digital marketing experience." />
+  <title>Mike Koshko | Marketing Operations & Growth Strategist</title>
+  <style>
+    :root {
+      --bg: #0c1018;
+      --panel: rgba(18, 24, 36, 0.82);
+      --panel-solid: #121824;
+      --text: #f7f9fc;
+      --muted: #aeb8c9;
+      --line: rgba(255,255,255,.11);
+      --accent: #7c9cff;
+      --accent-2: #63e6be;
+      --warm: #ffd166;
+      --shadow: 0 24px 70px rgba(0,0,0,.32);
+      --radius: 24px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(124,156,255,.16), transparent 30rem),
+        radial-gradient(circle at 100% 20%, rgba(99,230,190,.10), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .progress {
+      position: fixed; inset: 0 auto auto 0; height: 3px; width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      z-index: 1000;
+    }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(12,16,24,.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: var(--max); margin: 0 auto; padding: 14px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.02em; }
+    .monogram {
+      width: 38px; height: 38px; border-radius: 12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #081018;
+      box-shadow: 0 10px 28px rgba(124,156,255,.22);
+    }
+
+    .navlinks { display: flex; align-items: center; gap: 8px; }
+    .navlinks a { color: var(--muted); padding: 9px 12px; border-radius: 10px; font-size: 14px; }
+    .navlinks a:hover, .navlinks a.active { color: var(--text); background: rgba(255,255,255,.06); }
+
+    .menu-btn { display:none; border:1px solid var(--line); background:transparent; color:var(--text); padding:9px 11px; border-radius:10px; }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 22px; }
+
+    .hero {
+      min-height: 78vh; display: grid; grid-template-columns: 1.25fr .75fr; gap: 48px;
+      align-items: center; padding: 90px 0 64px;
+    }
+
+    .eyebrow { color: var(--accent-2); text-transform: uppercase; font-weight: 800; letter-spacing: .14em; font-size: 12px; }
+    h1 { font-size: clamp(3.2rem, 8vw, 7rem); line-height: .92; letter-spacing: -.065em; margin: 14px 0 20px; max-width: 900px; }
+    .hero h1 span { color: transparent; background: linear-gradient(90deg, #fff 10%, #a9b9ff 48%, #70e4c3 90%); background-clip:text; -webkit-background-clip:text; }
+    .hero-copy { color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.25rem); max-width: 760px; }
+
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height: 46px;
+      padding: 0 16px; border-radius: 13px; border:1px solid var(--line); font-weight: 750;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.24); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #9c7cff); color:#081018; border:0; }
+    .btn.ghost { background: rgba(255,255,255,.04); }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border: 1px solid var(--line); border-radius: 28px; padding: 26px; box-shadow: var(--shadow);
+      position:relative; overflow:hidden;
+    }
+    .hero-card:before { content:""; position:absolute; width:220px; height:220px; border-radius:50%; right:-80px; top:-90px; background:rgba(124,156,255,.16); filter:blur(8px); }
+    .status { display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px; margin-bottom:22px; }
+    .dot { width:9px; height:9px; border-radius:50%; background:var(--accent-2); box-shadow: 0 0 0 5px rgba(99,230,190,.1); }
+    .stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .stat { border:1px solid var(--line); border-radius:18px; padding:16px; background:rgba(255,255,255,.025); }
+    .stat strong { display:block; font-size:1.65rem; letter-spacing:-.04em; }
+    .stat span { color:var(--muted); font-size:12px; }
+
+    section { padding: 78px 0; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:30px; margin-bottom:30px; }
+    .section-head h2 { font-size: clamp(2rem, 5vw, 4rem); margin:0; letter-spacing:-.05em; line-height:1; }
+    .section-head p { max-width:540px; color:var(--muted); margin:0; }
+
+    .metric-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    .metric {
+      padding:22px; border-radius:20px; border:1px solid var(--line); background:var(--panel);
+      transition:transform .2s ease, border-color .2s ease;
+    }
+    .metric:hover { transform:translateY(-4px); border-color:rgba(124,156,255,.45); }
+    .metric .num { font-size:2rem; font-weight:850; letter-spacing:-.05em; }
+    .metric .label { color:var(--muted); font-size:13px; }
+
+    .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+    .chip {
+      border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--muted); padding:9px 13px; border-radius:999px;
+      cursor:pointer; font-weight:700; font-size:13px;
+    }
+    .chip.active { color:#081018; background:var(--accent-2); border-color:transparent; }
+
+    .timeline { display:grid; gap:16px; }
+    .job {
+      border:1px solid var(--line); background:var(--panel); border-radius:22px; overflow:hidden;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .job:hover { border-color:rgba(124,156,255,.34); }
+    .job-header { width:100%; display:grid; grid-template-columns:1fr auto; gap:18px; text-align:left; padding:22px; background:transparent; border:0; color:inherit; cursor:pointer; }
+    .job-title { display:flex; gap:14px; align-items:flex-start; }
+    .job-badge { width:44px; height:44px; border-radius:14px; display:grid; place-items:center; flex:none; background:rgba(124,156,255,.13); color:#c6d2ff; font-weight:900; }
+    .job h3 { margin:0 0 3px; font-size:1.12rem; }
+    .job .role { color:var(--accent-2); font-size:14px; font-weight:750; }
+    .job .meta { color:var(--muted); font-size:13px; margin-top:4px; }
+    .job .toggle { color:var(--muted); font-size:26px; line-height:1; transition:transform .2s ease; }
+    .job.open .toggle { transform:rotate(45deg); }
+    .job-body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease; }
+    .job.open .job-body { grid-template-rows:1fr; }
+    .job-body > div { overflow:hidden; }
+    .job-content { padding:0 22px 22px 80px; color:var(--muted); }
+    .job-content p { margin:0 0 14px; }
+    .job-content ul { margin:0; padding-left:20px; display:grid; gap:8px; }
+
+    .skills-layout { display:grid; grid-template-columns: .7fr 1.3fr; gap:20px; }
+    .skill-menu { display:grid; gap:8px; align-content:start; }
+    .skill-tab { border:1px solid var(--line); background:transparent; color:var(--muted); text-align:left; padding:14px 16px; border-radius:14px; cursor:pointer; font-weight:750; }
+    .skill-tab.active { background:rgba(124,156,255,.12); color:var(--text); border-color:rgba(124,156,255,.32); }
+    .skill-panel { min-height:260px; border:1px solid var(--line); border-radius:22px; padding:24px; background:var(--panel); }
+    .skill-panel h3 { margin-top:0; font-size:1.5rem; }
+    .tag-cloud { display:flex; flex-wrap:wrap; gap:10px; }
+    .tag { padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.055); border:1px solid var(--line); color:#dce3f0; }
+
+    .earlier-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .small-card { border:1px solid var(--line); background:var(--panel); border-radius:20px; padding:20px; }
+    .small-card .year { color:var(--accent-2); font-weight:800; font-size:12px; letter-spacing:.06em; }
+    .small-card h3 { margin:8px 0 6px; }
+    .small-card p { color:var(--muted); font-size:14px; margin:0; }
+
+    .portfolio-card {
+      border:1px solid var(--line); border-radius:28px; padding:30px;
+      background:linear-gradient(135deg, rgba(124,156,255,.10), rgba(255,209,102,.055));
+      display:grid; grid-template-columns:1.25fr .75fr; gap:28px; align-items:center; overflow:hidden;
+    }
+    .portfolio-card h3 { margin:8px 0 10px; font-size:clamp(1.6rem,4vw,2.5rem); letter-spacing:-.04em; }
+    .portfolio-card p { margin:0; color:var(--muted); max-width:700px; }
+    .portfolio-brands { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 22px; }
+    .portfolio-brands span { padding:8px 11px; border:1px solid var(--line); border-radius:999px; color:#dce3f0; background:rgba(255,255,255,.035); font-size:12px; font-weight:750; }
+    .portfolio-action { display:flex; justify-content:flex-end; }
+
+    .footer-card {
+      border:1px solid var(--line); border-radius:28px; padding:34px; background:linear-gradient(135deg, rgba(124,156,255,.12), rgba(99,230,190,.07));
+      display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center;
+    }
+    .footer-card h2 { margin:0 0 8px; font-size:clamp(2rem,5vw,3.5rem); letter-spacing:-.05em; }
+    .footer-card p { color:var(--muted); margin:0; }
+    footer { color:var(--muted); font-size:13px; padding:26px 0 40px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+
+    .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns:1fr; min-height:auto; padding-top:68px; }
+      .hero-card { max-width:650px; }
+      .metric-strip { grid-template-columns:repeat(2,1fr); }
+      .skills-layout { grid-template-columns:1fr; }
+      .skill-menu { grid-template-columns:repeat(2,1fr); }
+      .earlier-grid { grid-template-columns:1fr; }
+      .portfolio-card { grid-template-columns:1fr; }
+      .portfolio-action { justify-content:flex-start; }
+      .footer-card { grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .nav { padding:12px 16px; }
+      .navlinks { display:none; position:absolute; top:62px; left:12px; right:12px; flex-direction:column; align-items:stretch; padding:10px; border:1px solid var(--line); background:#111724; border-radius:16px; box-shadow:var(--shadow); }
+      .navlinks.open { display:flex; }
+      .navlinks a { padding:12px; }
+      .menu-btn { display:block; }
+      .container { padding:0 16px; }
+      .hero { padding:54px 0 42px; gap:30px; }
+      h1 { font-size:clamp(3rem,18vw,5rem); }
+      section { padding:56px 0; }
+      .section-head { display:block; }
+      .section-head p { margin-top:12px; }
+      .metric-strip { grid-template-columns:1fr 1fr; }
+      .stat-grid { grid-template-columns:1fr 1fr; }
+      .job-header { padding:17px; }
+      .job-content { padding:0 17px 18px; }
+      .job-badge { display:none; }
+      .skill-menu { display:flex; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
+      .skill-menu::-webkit-scrollbar { display:none; }
+      .skill-tab { white-space:nowrap; }
+      .footer-card { padding:24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *:before, *:after { transition:none !important; animation:none !important; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="topbar">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top"><span class="monogram">MK</span><span>Mike Koshko</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks">Menu</button>
+      <div class="navlinks" id="navlinks">
+        <a href="#impact">Impact</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="container">
+      <section class="hero">
+        <div class="reveal">
+          <div class="eyebrow">Marketing Operations • Growth • Performance</div>
+          <h1><span>Mike Koshko</span></h1>
+          <p class="hero-copy">Marketing Operations and Growth Strategist with 20 years of digital marketing experience building scalable systems, measurement frameworks, integrated campaigns, and cross-functional workflows across B2B, B2C, DTC, and agency environments.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="mailto:mikekoshko@gmail.com">Email Mike</a>
+            <a class="btn ghost" href="https://www.linkedin.com/in/mikekoshko" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a class="btn ghost" href="Mike_Koshko_Resume.pdf" download>Download résumé ↓</a>
+            <a class="btn ghost" href="Mike_Koshko_Portfolio.pdf" download>Download portfolio ↓</a>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" aria-label="Career highlights">
+          <div class="status"><span class="dot"></span> Marketing systems that connect strategy to measurable growth</div>
+          <div class="stat-grid">
+            <div class="stat"><strong>20 yrs</strong><span>Digital marketing experience</span></div>
+            <div class="stat"><strong>$5.5M</strong><span>Annual media investment managed</span></div>
+            <div class="stat"><strong>40%</strong><span>CAC reduction</span></div>
+            <div class="stat"><strong>10M+</strong><span>Customers reached in personalized initiatives</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="impact">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Selected impact</div><h2>Work that moved the numbers.</h2></div>
+          <p>Highlights across paid media, conversion optimization, campaign operations, personalization, and process improvement.</p>
+        </div>
+        <div class="metric-strip">
+          <div class="metric reveal"><div class="num">-40%</div><div class="label">Customer acquisition cost</div></div>
+          <div class="metric reveal"><div class="num">+30%</div><div class="label">Lead generation</div></div>
+          <div class="metric reveal"><div class="num">+25%</div><div class="label">Website conversion rate</div></div>
+          <div class="metric reveal"><div class="num">+17%</div><div class="label">Average monthly lead volume</div></div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Experience</div><h2>Built across brands, agencies, and growth teams.</h2></div>
+          <p>Tap any role to expand it. Use the filters to quickly focus the timeline by type of work.</p>
+        </div>
+
+        <div class="filters reveal" aria-label="Experience filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="growth">Growth</button>
+          <button class="chip" data-filter="operations">Operations</button>
+          <button class="chip" data-filter="paid">Paid Media</button>
+          <button class="chip" data-filter="agency">Agency</button>
+        </div>
+
+        <div class="timeline" id="timeline">
+          <article class="job reveal open" data-tags="growth operations paid agency">
+            <button class="job-header" aria-expanded="true">
+              <div class="job-title"><div class="job-badge">52</div><div><h3>52 Launch</h3><div class="role">Growth Marketing Strategist | Marketing Operations & Paid Media</div><div class="meta">Framingham, MA • Feb 2026 – Jun 2026</div></div></div>
+              <span class="toggle">+</span>
+            </button>
+            <div class="job-body"><div><div class="job-content">
+              <p>Product development and launch accelerator helping early-stage consumer brands bring products to market through integrated growth strategy, creative, e-commerce, web, and paid media.</p>
+              <ul>
+                <li>Built repeatable growth marketing systems connecting paid media, Shopify, creative production, landing pages, analytics, and performance reporting.</li>
+                <li>Developed full-funnel campaign structures, testing plans, audience strategies, and optimization workflows across Meta, Google, TikTok, and Shopify.</li>
+                <li>Partnered across creative, content, product, web, and leadership to translate business objectives into measurable growth initiatives.</li>
+                <li>Analyzed acquisition and conversion data to identify funnel bottlenecks and improve CAC, ROAS, CTR, and conversion rate.</li>
+              </ul>
+            </div></div></div>
+          </article>
+
+          <article class="job reveal" data-tags="growth operations paid agency">
+            <button class="job-header" aria-expanded="false">
+              <div class="job-title"><div class="job-badge">CM</div><div><h3>Charge Media</h3><div class="role">Growth Marketing Strategist</div><div class="meta">Holden, MA • Jan 2023 – Feb 2026</div></div></div>
+              <span class="toggle">+</span>
+            </button>
+            <div class="job-body"><div><div class="job-content">
+              <p>Independent digital marketing consultancy serving SMBs and agencies.</p>
+              <ul>
+                <li>Built end-to-end marketing programs spanning lead generation, paid media, analytics, conversion optimization, content, and reporting.</li>
+                <li>Designed scalable client acquisition workflows connecting campaign strategy, lead capture, measurement, and ongoing optimization.</li>
+                <li>Built and led paid social teams and standardized campaign processes, reducing CAC by 40% while increasing lead generation by 30%.</li>
+                <li>Improved client website conversion rates by 25% within three months.</li>
+                <li>Developed SMB growth strategies that increased leads by 35% and identified opportunities driving 3x engagement within 60 days.</li>
+              </ul>
+            </div></div></div>
+          </article>
+
+          <article class="job reveal" data-tags="growth operations paid">
+            <button class="job-header" aria-expanded="false">
+              <div class="job-title"><div class="job-badge">EF</div><div><h3>Edelman Financial Engines</h3><div class="role">Senior Digital Marketing Manager, Social & Operations</div><div class="meta">Boston, MA • Jun 2020 – Jan 2023</div></div></div>
+              <span class="toggle">+</span>
+            </button>
+            <div class="job-body"><div><div class="job-content">
+              <p>Top U.S. financial advisory firm with $290B+ in assets under management.</p>
+              <ul>
+                <li>Redesigned workflows across compliance, PR, creative, and marketing, improving content approval efficiency by 30%.</li>
+                <li>Developed integrated paid and organic acquisition strategies and measurement processes, increasing conversion rates by 30%.</li>
+                <li>Analyzed monthly performance to identify trends and improve CTR by 18%.</li>
+                <li>Managed digital campaign execution in a highly regulated financial-services environment.</li>
+              </ul>
+            </div></div></div>
+          </article>
+
+          <article class="job reveal" data-tags="growth operations paid agency">
+            <button class="job-header" aria-expanded="false">
+              <div class="job-title"><div class="job-badge">H</div><div><h3>Hawkeye</h3><div class="role">Senior Digital Marketing Strategist, Social & Campaign Operations</div><div class="meta">Dallas, TX • May 2016 – Jun 2020</div></div></div>
+              <span class="toggle">+</span>
+            </button>
+            <div class="job-body"><div><div class="job-content">
+              <p>Publicis-owned digital agency serving Fortune 500 brands.</p>
+              <ul>
+                <li>Developed a Dynamic Creative Optimization framework that standardized execution and accelerated launches by 25%.</li>
+                <li>Built integrated strategies and operational frameworks for clients including USAA, Google, AT&T, and T-Mobile.</li>
+                <li>Led data-driven audience and creative testing programs that improved advertising effectiveness by 22%.</li>
+                <li>Directed personalized digital initiatives, including USAA SafePilot, engaging 10M+ customers.</li>
+              </ul>
+            </div></div></div>
+          </article>
+
+          <article class="job reveal" data-tags="operations paid agency">
+            <button class="job-header" aria-expanded="false">
+              <div class="job-title"><div class="job-badge">D50</div><div><h3>D50 Media</h3><div class="role">Digital Marketing Strategist, Paid Media & Campaign Operations</div><div class="meta">Chestnut Hill, MA • May 2012 – May 2016</div></div></div>
+              <span class="toggle">+</span>
+            </button>
+            <div class="job-body"><div><div class="job-content">
+              <p>Performance agency focused on lead generation for legal and financial sectors.</p>
+              <ul>
+                <li>Supported audience segmentation and data migration tools used to improve targeting and campaign operations.</li>
+                <li>Managed operations across 75+ lead-generation programs and 1,200 legal affiliates nationwide.</li>
+                <li>Managed $5.5M in annual media investment while supporting repeatable optimization and reporting processes.</li>
+                <li>Increased average monthly lead volume by 17% through performance analysis and optimization.</li>
+              </ul>
+            </div></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Capabilities</div><h2>Strategy meets systems.</h2></div>
+          <p>Select a category to explore the platforms and disciplines behind the work.</p>
+        </div>
+
+        <div class="skills-layout reveal">
+          <div class="skill-menu" role="tablist">
+            <button class="skill-tab active" data-skill="ops">Marketing Operations</button>
+            <button class="skill-tab" data-skill="analytics">Analytics & Measurement</button>
+            <button class="skill-tab" data-skill="acquisition">Advertising & Acquisition</button>
+            <button class="skill-tab" data-skill="workflow">Workflow & Content</button>
+            <button class="skill-tab" data-skill="ai">AI & Automation</button>
+          </div>
+          <div class="skill-panel" id="skillPanel" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Earlier experience</div><h2>Entrepreneurial roots.</h2></div>
+          <p>Earlier roles established the foundation in client growth, digital publishing, training, and independent agency leadership.</p>
+        </div>
+        <div class="earlier-grid">
+          <div class="small-card reveal"><div class="year">2010–2012</div><h3>Sigma7 Group</h3><p>Social Media Strategist. Developed strategies for 40+ SMB clients, trained 60+ business owners, and supported business development and mentorship.</p></div>
+          <div class="small-card reveal"><div class="year">2008–2010</div><h3>Cordial Media</h3><p>Founder & Digital Marketing Strategist. Built an independent agency that generated $375K+ in client revenue.</p></div>
+          <div class="small-card reveal"><div class="year">2004–2009</div><h3>ReviewArtists.com</h3><p>Founder & Digital Strategist. Built an independent digital publication to 1M+ monthly visits.</p></div>
+        </div>
+      </section>
+
+      <section id="portfolio">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Portfolio</div><h2>See the work.</h2></div>
+          <p>A downloadable collection of social and campaign work across financial services, healthcare, nonprofit, and consumer brands.</p>
+        </div>
+        <div class="portfolio-card reveal">
+          <div>
+            <div class="eyebrow">Selected work samples</div>
+            <h3>Campaign and social creative in one PDF.</h3>
+            <p>The portfolio includes examples for USAA, Edelman Financial Engines, Valisure, United Recovery Project, and Big Brothers Big Sisters of America.</p>
+            <div class="portfolio-brands" aria-label="Brands represented in portfolio">
+              <span>USAA</span><span>Edelman Financial Engines</span><span>Valisure</span><span>United Recovery Project</span><span>Big Brothers Big Sisters</span>
+            </div>
+          </div>
+          <div class="portfolio-action">
+            <a class="btn primary" href="Mike_Koshko_Portfolio.pdf" download>Download portfolio PDF ↓</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="credentials">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Credentials</div><h2>Certified across the modern marketing stack.</h2></div>
+          <p>Platform certifications and continued training spanning search, social, content strategy, and AI-assisted marketing.</p>
+        </div>
+        <div class="tag-cloud reveal">
+          <span class="tag">Meta Certified Digital Marketing Associate</span>
+          <span class="tag">Google Ads Search Certification</span>
+          <span class="tag">HubSpot Content Marketing Certification</span>
+          <span class="tag">LinkedIn Marketing Strategy Certification</span>
+          <span class="tag">Prompt Engineering for Marketers</span>
+          <span class="tag">ChatGPT for Marketing</span>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="footer-card reveal">
+          <div>
+            <div class="eyebrow">Contact</div>
+            <h2>Let’s connect.</h2>
+            <p>Holden, Massachusetts • Marketing Operations • Growth Strategy • Performance Marketing</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="mailto:mikekoshko@gmail.com">mikekoshko@gmail.com</a>
+            <a class="btn ghost" href="tel:+17742780477">(774) 278-0477</a>
+            <a class="btn ghost" href="Mike_Koshko_Portfolio.pdf" download>Portfolio ↓</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="year"></span> Mike Koshko</span>
+        <span>B.S. Marketing • University of Massachusetts Lowell • 2009</span>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    const jobs = document.querySelectorAll('.job');
+    jobs.forEach(job => {
+      const button = job.querySelector('.job-header');
+      button.addEventListener('click', () => {
+        const open = job.classList.toggle('open');
+        button.setAttribute('aria-expanded', open);
+      });
+    });
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const filter = chip.dataset.filter;
+        jobs.forEach(job => {
+          const show = filter === 'all' || job.dataset.tags.includes(filter);
+          job.style.display = show ? '' : 'none';
+        });
+      });
+    });
+
+    const skills = {
+      ops: {
+        title: 'Marketing Operations & MarTech',
+        items: ['HubSpot','Marketo','Salesforce','CRM & Marketing Automation','Campaign Operations','Process Development','Lead Generation','Funnel Optimization','Conversion Rate Optimization','Cross-Functional Operations']
+      },
+      analytics: {
+        title: 'Analytics & Measurement',
+        items: ['Google Analytics','Google Tag Manager','Looker Studio','Supermetrics','BigQuery','UTM Tracking','Attribution & Measurement','Reporting & Dashboards']
+      },
+      acquisition: {
+        title: 'Advertising & Acquisition',
+        items: ['Meta Ads Manager','Google Ads','LinkedIn Campaign Manager','TikTok Ads','Performance Marketing','Paid Media','Audience Strategy','Creative Testing']
+      },
+      workflow: {
+        title: 'Workflow & Content Technology',
+        items: ['Workfront','Jira','Asana','Sprinklr','Sprout Social','Hootsuite','Brandwatch','Canva','Adobe Creative Cloud']
+      },
+      ai: {
+        title: 'AI & Automation',
+        items: ['ChatGPT','Claude','AI-Assisted Marketing Workflows','Prompt Engineering for Marketers','Scalable Marketing Systems']
+      }
+    };
+
+    const skillPanel = document.getElementById('skillPanel');
+    function renderSkill(key) {
+      const group = skills[key];
+      skillPanel.innerHTML = `<h3>${group.title}</h3><div class="tag-cloud">${group.items.map(item => `<span class="tag">${item}</span>`).join('')}</div>`;
+    }
+    renderSkill('ops');
+
+    document.querySelectorAll('.skill-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderSkill(tab.dataset.skill);
+      });
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navlinks = document.getElementById('navlinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navlinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+    navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navlinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', false);
+    }));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const sections = [...document.querySelectorAll('section[id]')];
+    const navAnchors = [...document.querySelectorAll('.navlinks a')];
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${entry.target.id}`));
+        }
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(s => sectionObserver.observe(s));
+
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+    }, { passive:true });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
